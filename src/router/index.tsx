@@ -27,13 +27,13 @@ const router = createBrowserRouter([
   {
     element: <PublicLayout />,
     children: [
-      { path: '/', element: wrap(HomePage) },
-      { path: '/discussions', element: wrap(DiscussionsPage) },
-      { path: '/discussions/:id', element: wrap(DiscussionPage) },
-      { path: '/registry', element: wrap(RegistryPage) },
-      { path: '/registry/:id', element: wrap(GeoObjectDetailPage) },
-      { path: '/guide', element: wrap(GuidePage) },
-      { path: '/login', element: wrap(TelegramLoginPage) },
+      { path: '/', element: wrap(HomePage), handle: { title: 'Bosh sahifa' } },
+      { path: '/discussions', element: wrap(DiscussionsPage), handle: { title: 'Muhokamalar' } },
+      { path: '/discussions/:id', element: wrap(DiscussionPage), handle: { title: 'Muhokama' } },
+      { path: '/registry', element: wrap(RegistryPage), handle: { title: 'Reyestr' } },
+      { path: '/registry/:id', element: wrap(GeoObjectDetailPage), handle: { title: 'Geografik obyekt' } },
+      { path: '/guide', element: wrap(GuidePage), handle: { title: "Qo'llanmalar" } },
+      { path: '/login', element: wrap(TelegramLoginPage), handle: { title: 'Kirish' } },
     ],
   },
 ]);

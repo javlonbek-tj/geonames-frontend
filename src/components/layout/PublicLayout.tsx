@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Outlet, useNavigate, useLocation } from 'react-router';
+import { useState, useEffect } from 'react';
+import { Outlet, useNavigate, useLocation, useMatches } from 'react-router';
 import { Button, Dropdown } from 'antd';
 import {
   UserOutlined,
@@ -23,6 +23,12 @@ export default function PublicLayout() {
   const location = useLocation();
   const { citizen, clearAuth } = useCitizenStore();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const matches = useMatches();
+  useEffect(() => {
+    const match = [...matches].reverse().find((m) => (m.handle as { title?: string } | null)?.title);
+    const pageTitle = (match?.handle as { title?: string } | null)?.title;
+    document.title = pageTitle ? `${pageTitle} | Geonomlar` : 'Geonomlar';
+  }, [matches]);
 
   const handleLogout = () => {
     clearAuth();
