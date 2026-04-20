@@ -37,6 +37,10 @@ export default function PublicLayout() {
     void navigate('/');
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   const isActive = (key: string) =>
     key === '/' ? location.pathname === '/' : location.pathname.startsWith(key);
 

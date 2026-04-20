@@ -46,32 +46,43 @@ export const publicApi = {
 
   // Registry & reference data
   getRegistry: (params?: RegistryParams) =>
-    api.get<{ data: unknown[]; meta: { total: number; page: number; limit: number } }>(
-      '/public/registry',
-      { params },
-    ),
+    api.get<{
+      data: unknown[];
+      meta: { total: number; page: number; limit: number };
+    }>('/public/registry', { params }),
   getRegions: () =>
-    api.get<{ data: { id: number; nameUz: string }[] }>('/public/locations/regions'),
+    api.get<{ data: { id: number; nameUz: string }[] }>(
+      '/public/locations/regions',
+    ),
   getDistricts: (regionId?: number) =>
     api.get<{ data: { id: number; nameUz: string; regionId: number }[] }>(
       '/public/locations/districts',
       { params: regionId ? { regionId } : undefined },
     ),
   getCategories: () =>
-    api.get<{ data: { id: number; nameUz: string; code: string | null; objectTypes: { id: number; nameUz: string }[] }[] }>(
-      '/public/categories',
-    ),
+    api.get<{
+      data: {
+        id: number;
+        nameUz: string;
+        code: string | null;
+        objectTypes: { id: number; nameUz: string }[];
+      }[];
+    }>('/public/categories'),
 
   getRegistryObject: (id: number) =>
     api.get<{ data: unknown }>(`/public/registry/${id}`),
 
   // Telegram OTP auth
   requestOtp: (phone: string) =>
-    api.post<{ data: { sessionId: string } }>('/public/auth/otp/request', { phone }),
+    api.post<{ data: { sessionId: string } }>('/public/auth/otp/request', {
+      phone,
+    }),
 
   verifyOtp: (sessionId: string, code: string) =>
-    api.post<{ data: { accessToken: string; citizen: import('../store/citizenStore').Citizen } }>(
-      '/public/auth/otp/verify',
-      { sessionId, code },
-    ),
+    api.post<{
+      data: {
+        accessToken: string;
+        citizen: import('../store/citizenStore').Citizen;
+      };
+    }>('/public/auth/otp/verify', { sessionId, code }),
 };
