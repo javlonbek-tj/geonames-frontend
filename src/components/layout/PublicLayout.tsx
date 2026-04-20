@@ -25,7 +25,9 @@ export default function PublicLayout() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const matches = useMatches();
   useEffect(() => {
-    const match = [...matches].reverse().find((m) => (m.handle as { title?: string } | null)?.title);
+    const match = [...matches]
+      .reverse()
+      .find((m) => (m.handle as { title?: string } | null)?.title);
     const pageTitle = (match?.handle as { title?: string } | null)?.title;
     document.title = pageTitle ? `${pageTitle} | Geonomlar` : 'Geonomlar';
   }, [matches]);
@@ -40,6 +42,11 @@ export default function PublicLayout() {
 
   return (
     <div className='min-h-screen flex flex-col bg-[#f9fafc]'>
+      {/* Beta banner */}
+      <div className='w-full bg-amber-50 border-b border-amber-200 py-1.5 px-4 text-center text-xs text-amber-800'>
+        Bu platforma rasmiy maqomga ega emas — sinov (beta) rejimida ishlaydi.
+        Ma'lumotlar hali to'liq tasdiqlanmagan.
+      </div>
       {/* Navbar */}
       <header className='sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm'>
         <div className='max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4'>
@@ -90,7 +97,7 @@ export default function PublicLayout() {
                     <UserOutlined style={{ color: '#fff', fontSize: 11 }} />
                   </div>
                   <span className='max-w-[120px] truncate'>
-                    {citizen.fullName ?? citizen.telegramId}
+                    {citizen.fullName?.split(' ')[0]}
                   </span>
                   <DownOutlined style={{ fontSize: 10, color: '#9ca3af' }} />
                 </button>
