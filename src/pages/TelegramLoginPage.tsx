@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { App, Button, Form, Input } from 'antd';
-import { PhoneOutlined, LockOutlined } from '@ant-design/icons';
+import { PhoneOutlined } from '@ant-design/icons';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
 import { publicApi } from '@/api/public.api';
@@ -274,12 +274,13 @@ export default function TelegramLoginPage() {
                     { len: 6, message: '6 xonali kod kiriting' },
                   ]}
                 >
-                  <Input
-                    prefix={<LockOutlined style={{ color: '#9ca3af' }} />}
-                    placeholder='• • • • • •'
+                  <Input.OTP
+                    length={6}
                     size='large'
-                    maxLength={6}
-                    style={{ borderRadius: 10, letterSpacing: 6, fontSize: 18 }}
+                    onChange={(val) => {
+                      otpForm.setFieldValue('code', val);
+                      if (val.length === 6) otpForm.submit();
+                    }}
                   />
                 </Form.Item>
                 <Button

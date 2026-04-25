@@ -1,8 +1,8 @@
 import { useState, useCallback } from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
-import { Select, Pagination, Spin, Tooltip } from 'antd';
-import { SearchOutlined, ClearOutlined, CopyOutlined, CheckOutlined, CloseCircleFilled } from '@ant-design/icons';
+import { Select, Pagination, Spin, Tooltip, Input, Button } from 'antd';
+import { ClearOutlined, CopyOutlined, CheckOutlined } from '@ant-design/icons';
 import { publicApi, type RegistryParams } from '@/api/public.api';
 
 const DEFAULT_LIMIT = 10;
@@ -125,32 +125,19 @@ export default function RegistrySection() {
       {/* Filters */}
       <div className='bg-white rounded-2xl border border-[#e3e8f0] p-4 mb-4'>
         <div className='flex flex-wrap gap-3 items-end'>
-          <div className='relative flex-1' style={{ minWidth: 220 }}>
-            <div className='text-xs text-gray-500 mb-1'>Qidirish (nomi)</div>
-            <div className='relative'>
-              <SearchOutlined
-                className='absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400'
-                style={{ fontSize: 14 }}
-              />
-              <input
-                className='w-full h-9 pl-8 pr-8 rounded-lg border border-[#d1d9e8] text-sm bg-white outline-none focus:border-blue-500 transition-colors'
-                placeholder="Nom yoki reyestr raqami bo'yicha..."
-                value={searchInput}
-                onChange={(e) => setSearchInput(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && applySearch()}
-              />
-              {searchInput && (
-                <button
-                  onClick={() => {
-                    setSearchInput('');
-                    setFilters((f) => ({ ...f, page: 1, search: undefined }));
-                  }}
-                  className='absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-300 hover:text-gray-500 transition-colors cursor-pointer border-0 bg-transparent p-0 leading-none'
-                >
-                  <CloseCircleFilled style={{ fontSize: 14 }} />
-                </button>
-              )}
-            </div>
+          <div style={{ width: 260 }}>
+            <div className='text-xs text-gray-500 mb-1'>Qidirish</div>
+            <Input.Search
+              placeholder="Nom yoki reyestr raqami..."
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              onSearch={applySearch}
+              onClear={() => {
+                setSearchInput('');
+                setFilters((f) => ({ ...f, page: 1, search: undefined }));
+              }}
+              allowClear
+            />
           </div>
 
           <div style={{ minWidth: 160 }}>
@@ -210,21 +197,15 @@ export default function RegistrySection() {
             />
           </div>
 
-          <div className='flex gap-2'>
-            <button
-              className='inline-flex items-center gap-1.5 h-9 px-4 rounded-lg bg-[#1565c0] text-white text-sm font-semibold cursor-pointer border-0 hover:bg-[#0d47a1] transition-colors'
-              onClick={applySearch}
+          <div>
+            <div className='text-xs mb-1 invisible'>.</div>
+            <Button
+              icon={<ClearOutlined />}
+              onClick={clearFilters}
+              disabled={!hasFilters}
             >
-              <SearchOutlined /> Qidirish
-            </button>
-            {hasFilters && (
-              <button
-                className='inline-flex items-center gap-1.5 h-9 px-4 rounded-lg border border-[#d1d9e8] bg-white text-sm font-medium text-gray-600 cursor-pointer hover:bg-gray-50 transition-colors'
-                onClick={clearFilters}
-              >
-                <ClearOutlined /> Tozalash
-              </button>
-            )}
+              Tozalash
+            </Button>
           </div>
         </div>
       </div>
@@ -321,7 +302,7 @@ export default function RegistrySection() {
         </div>
 
         {/* Pagination */}
-        {total > 0 && (
+        {total > (filters.limit ?? DEFAULT_LIMIT) && (
           <div className='flex items-center justify-between px-4 py-3 border-t border-[#e3e8f0] bg-[#f8faff]'>
             <span className='text-sm text-gray-500'>
               Jami:{' '}

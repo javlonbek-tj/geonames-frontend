@@ -35,8 +35,8 @@ export interface RegistryParams {
 }
 
 export const publicApi = {
-  listDiscussions: (params?: { regionId?: number; districtId?: number }) =>
-    api.get<{ data: DiscussionItem[] }>('/public/discussions', { params }),
+  listDiscussions: (params?: { regionId?: number; districtId?: number; page?: number; limit?: number }) =>
+    api.get<{ data: DiscussionItem[]; meta: { total: number; page: number; limit: number; totalPages: number } }>('/public/discussions', { params }),
 
   getDiscussion: (id: number) =>
     api.get<{ data: DiscussionItem }>(`/public/discussions/${id}`),
