@@ -6,10 +6,12 @@ import {
   ArrowLeftOutlined,
   ExpandOutlined,
   CloseOutlined,
+  FileTextOutlined,
 } from '@ant-design/icons';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { publicApi } from '@/api/public.api';
+import KochirmaModal from '@/components/KochirmaModal';
 
 interface GeoObject {
   id: number;
@@ -163,6 +165,7 @@ export default function GeoObjectDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [fullscreen, setFullscreen] = useState(false);
+  const [kochirmaOpen, setKochirmaOpen] = useState(false);
 
   const { data: obj, isLoading } = useQuery({
     queryKey: ['public-geo-object', id],
@@ -199,7 +202,7 @@ export default function GeoObjectDetailPage() {
         >
           <ArrowLeftOutlined style={{ fontSize: 13, color: '#374151' }} />
         </button>
-        <h1 className='text-xl font-extrabold text-[#0f1f3d] m-0'>
+        <h1 className='text-xl font-extrabold text-[#0f1f3d] m-0 flex-1'>
           {obj.nameUz ?? "Nomi yo'q"}
         </h1>
         {obj.objectType?.nameUz && (
@@ -207,7 +210,20 @@ export default function GeoObjectDetailPage() {
             {obj.objectType.nameUz}
           </span>
         )}
+        <button
+          onClick={() => setKochirmaOpen(true)}
+          className='inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold cursor-pointer border border-[#d1d9e8] bg-white hover:bg-[#f0f4ff] transition-colors'
+          style={{ color: '#1565c0' }}
+        >
+          <FileTextOutlined style={{ fontSize: 13 }} />
+          Ko&apos;chirma
+        </button>
       </div>
+
+      <KochirmaModal
+        obj={kochirmaOpen ? obj : null}
+        onClose={() => setKochirmaOpen(false)}
+      />
 
       {/* 2-column grid: details left, map right */}
       <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
