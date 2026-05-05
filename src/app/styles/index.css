@@ -1,0 +1,27 @@
+@layer theme, base, antd, components, utilities;
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter Variable', sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: #f9fafc;
+}
+
+@keyframes loading-bar {
+  0%   { transform: translateX(-100%); }
+  50%  { transform: translateX(100%); }
+  100% { transform: translateX(300%); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
