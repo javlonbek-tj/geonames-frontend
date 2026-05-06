@@ -32,7 +32,7 @@ const router = createBrowserRouter([
       {
         path: '/registry',
         lazy: () =>
-          import('@/pages/registry/ui/RegistryPage').then((m) => ({
+          import('@/pages/registries/ui/RegistriesPage').then((m) => ({
             Component: m.default,
           })),
         handle: { title: 'Reyestr' },
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
       {
         path: '/registry/:id',
         lazy: () =>
-          import('@/pages/geo-object/ui/GeoObjectDetailPage').then((m) => ({
+          import('@/pages/registry/ui/RegistryPage').then((m) => ({
             Component: m.default,
           })),
         handle: { title: 'Geografik obyekt' },
@@ -60,6 +60,14 @@ const router = createBrowserRouter([
             Component: m.default,
           })),
         handle: { title: 'Kirish' },
+      },
+      {
+        path: '*',
+        lazy: () =>
+          import('@/pages/not-found/ui/NotFoundPage').then((m) => ({
+            Component: m.default,
+          })),
+        handle: { title: 'Sahifa topilmadi' },
       },
     ],
   },

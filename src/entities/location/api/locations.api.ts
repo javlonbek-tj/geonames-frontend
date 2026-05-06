@@ -1,22 +1,16 @@
 import api from '@/shared/api/axios';
+import type { Region, District, Category } from '../model/types';
 
 export const locationsApi = {
   getRegions: () =>
-    api.get<{ data: { id: number; nameUz: string }[] }>('/public/locations/regions'),
+    api.get<{ data: Region[] }>('/public/locations/regions'),
 
   getDistricts: (regionId?: number) =>
-    api.get<{ data: { id: number; nameUz: string; regionId: number }[] }>(
+    api.get<{ data: District[] }>(
       '/public/locations/districts',
       { params: regionId ? { regionId } : undefined },
     ),
 
   getCategories: () =>
-    api.get<{
-      data: {
-        id: number;
-        nameUz: string;
-        code: string | null;
-        objectTypes: { id: number; nameUz: string }[];
-      }[];
-    }>('/public/categories'),
+    api.get<{ data: Category[] }>('/public/categories'),
 };

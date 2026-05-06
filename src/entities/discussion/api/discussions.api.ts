@@ -25,7 +25,7 @@ export interface VotePayload {
 }
 
 export const discussionsApi = {
-  list: (params?: { regionId?: number; districtId?: number; page?: number; limit?: number }) =>
+  list: (params?: { regionId?: number; districtId?: number; search?: string; page?: number; limit?: number }) =>
     api.get<{ data: DiscussionItem[]; meta: { total: number; page: number; limit: number; totalPages: number } }>(
       '/public/discussions',
       { params },
