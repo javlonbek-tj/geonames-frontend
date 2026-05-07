@@ -1,3 +1,4 @@
+import { Typography } from 'antd';
 import { Link } from 'react-router';
 import { NAV_ITEMS } from '../lib/navItems';
 import logoSvg from '@/shared/assets/logo.svg';
@@ -65,19 +66,19 @@ export default function Footer() {
               Toshkent shahar, Chilonzor tumani, Bunyodkor shoh ko&apos;chasi,
               28
               <br />
-              <a
+              <Typography.Link
                 href="tel:+998900048114"
-                className="text-white/55 hover:text-blue-300"
+                className="!text-white/55 hover:!text-blue-300"
               >
                 +998 90 004 81 14
-              </a>
+              </Typography.Link>
               <br />
-              <a
+              <Typography.Link
                 href="mailto:tjmr1996@gmail.com"
-                className="text-white/55 hover:text-blue-300"
+                className="!text-white/55 hover:!text-blue-300"
               >
                 tjmr1996@gmail.com
-              </a>
+              </Typography.Link>
             </p>
           </div>
         </div>

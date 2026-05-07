@@ -1,58 +1,37 @@
-import { useNavigate } from 'react-router';
+import { Typography } from 'antd';
+import { Navigate } from 'react-router';
 import { useCitizenStore } from '@/entities/citizen/model/citizenStore';
 import logoSvg from '@/shared/assets/logo.svg';
-import { useTelegramLogin } from '../model/useTelegramLogin';
+import { useTelegramLogin } from '@/features/telegram-login/model/useTelegramLogin';
 import LoginSteps from './LoginSteps';
 import PhoneForm from './PhoneForm';
 import OtpForm from './OtpForm';
 
 export default function TelegramLoginPage() {
-  const navigate = useNavigate();
   const citizen = useCitizenStore((s) => s.citizen);
   const { step, phone, requestOtp, verifyOtp, goBack } = useTelegramLogin();
 
-  if (citizen) {
-    void navigate('/');
-    return null;
-  }
+  if (citizen) return <Navigate to="/" replace />;
 
   return (
-    <div
-      style={{
-        background: '#f9fafc',
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-        padding: '80px 16px 40px',
-      }}
-    >
-      <div style={{ width: '100%', maxWidth: 440 }}>
-        <div className='flex flex-col items-center mb-8'>
-          <img src={logoSvg} alt='Geonames' style={{ height: 28, marginBottom: 14 }} />
-          <p style={{ fontSize: 16, color: '#6b7280', textAlign: 'center', lineHeight: 1.7, margin: 0 }}>
+    <div className="bg-[#f9fafc] min-h-screen flex items-start justify-center px-4 pt-20 pb-10">
+      <div className="w-full max-w-110">
+        <div className="flex flex-col items-center mb-8">
+          <img src={logoSvg} alt="Geonames" className="h-7 mb-3.5" />
+          <p className="text-base text-gray-500 text-center leading-relaxed m-0">
             Avval{' '}
-            <a
-              href='https://t.me/geonomlar_bot'
-              target='_blank'
-              rel='noreferrer'
-              style={{ color: '#1565c0', fontWeight: 700 }}
+            <Typography.Link
+              href="https://t.me/geonomlar_bot"
+              target="_blank"
+              className="font-bold!"
             >
               @geonomlar_bot
-            </a>{' '}
+            </Typography.Link>{' '}
             telegram botni ishga tushiring va telefon raqamingizni ulashing.
           </p>
         </div>
 
-        <div
-          style={{
-            background: '#fff',
-            borderRadius: 20,
-            border: '1px solid #e3e8f0',
-            padding: '36px 36px',
-            boxShadow: '0 4px 24px rgba(0,0,0,.06)',
-          }}
-        >
+        <div className="bg-white rounded-[20px] border border-[#e3e8f0] p-9 shadow-[0_4px_24px_rgba(0,0,0,0.06)]">
           <LoginSteps step={step} />
 
           {step === 'phone' ? (

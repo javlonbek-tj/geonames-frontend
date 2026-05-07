@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { App } from 'antd';
+import type { AxiosError } from 'axios';
 import { discussionsApi } from '@/entities/discussion/api/discussions.api';
 
 export function useVote(discussionId: number) {
@@ -14,7 +15,7 @@ export function useVote(discussionId: number) {
       void queryClient.invalidateQueries({ queryKey: ['public-discussions'] });
       void message.success('Ovozingiz qabul qilindi');
     },
-    onError: (err: { response?: { data?: { message?: string } } }) => {
+    onError: (err: AxiosError<{ message?: string }>) => {
       void message.error(err.response?.data?.message ?? 'Xatolik yuz berdi');
     },
   });

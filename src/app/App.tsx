@@ -3,6 +3,7 @@ import { StyleProvider } from '@ant-design/cssinjs';
 import { App as AntApp, ConfigProvider, Empty } from 'antd';
 import uzUZ from 'antd/locale/uz_UZ';
 import AppRouter from '@/app/router';
+import ErrorBoundary from '@/shared/ui/ErrorBoundary';
 import { queryClient } from '@/shared/lib/queryClient';
 
 const theme = {
@@ -29,7 +30,9 @@ export default function App() {
           )}
         >
           <AntApp>
-            <AppRouter />
+            <ErrorBoundary>
+              <AppRouter />
+            </ErrorBoundary>
           </AntApp>
         </ConfigProvider>
       </StyleProvider>

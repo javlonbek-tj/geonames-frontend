@@ -11,47 +11,48 @@ export default function PhoneForm({ onSubmit, isPending }: Props) {
 
   return (
     <>
-      <h2 style={{ fontSize: 20, fontWeight: 800, color: '#0f1f3d', marginBottom: 6, textAlign: 'center' }}>
+      <h2 className="text-xl font-extrabold text-[#0f1f3d] mb-1.5 text-center">
         Tizimga kirish
       </h2>
-      <p style={{ fontSize: 13, color: '#6b7280', marginBottom: 24, lineHeight: 1.6, textAlign: 'center' }}>
+      <p className="text-[13px] text-gray-500 mb-6 leading-relaxed text-center">
         Telegram bot orqali bir martalik kod yuboriladi.
       </p>
 
       <Form
         form={form}
-        layout='vertical'
+        layout="vertical"
         onFinish={(v) => onSubmit('+998' + String(v.phone).replace(/\D/g, ''))}
       >
         <Form.Item
-          name='phone'
-          label={<span style={{ fontWeight: 600, fontSize: 13 }}>Telefon raqam</span>}
+          name="phone"
+          label={
+            <span className="font-semibold text-[13px]">Telefon raqam</span>
+          }
           rules={[
             { required: true, message: 'Telefon raqam kiriting' },
             { pattern: /^\d{9}$/, message: '9 ta raqam kiriting (901234567)' },
           ]}
         >
           <Input
-            addonBefore={
-              <span style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#374151', fontWeight: 600 }}>
+            prefix={
+              <span className="flex items-center gap-1.5 text-gray-700 font-semibold pr-2 mr-1 border-r border-gray-300">
                 <PhoneOutlined style={{ fontSize: 14, color: '#1565c0' }} />
                 +998
               </span>
             }
-            placeholder='901234567'
-            size='large'
+            placeholder="901234567"
+            size="large"
             maxLength={9}
-            style={{ borderRadius: 10 }}
-            autoComplete='off'
+            autoComplete="off"
           />
         </Form.Item>
         <Button
-          type='primary'
-          htmlType='submit'
+          type="primary"
+          htmlType="submit"
           block
-          size='large'
+          size="large"
           loading={isPending}
-          style={{ borderRadius: 10, background: '#1565c0', border: 'none', fontWeight: 700, height: 44, marginTop: 4 }}
+          className="font-bold h-11 mt-1"
         >
           Kod yuborish
         </Button>

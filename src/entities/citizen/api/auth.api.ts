@@ -10,4 +10,10 @@ export const authApi = {
       '/public/auth/otp/verify',
       { sessionId, code },
     ),
+
+  refresh: () =>
+    api.post<{ data: { accessToken: string } }>('/public/auth/refresh'),
+
+  logout: () =>
+    api.post('/public/auth/logout'),
 };

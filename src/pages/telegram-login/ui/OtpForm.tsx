@@ -12,17 +12,20 @@ export default function OtpForm({ phone, onSubmit, onBack, isPending }: Props) {
 
   return (
     <>
-      <h2 style={{ fontSize: 20, fontWeight: 800, color: '#0f1f3d', marginBottom: 6 }}>
+      <h2 className="text-xl font-extrabold text-[#0f1f3d] mb-1.5">
         Kodni kiriting
       </h2>
-      <p style={{ fontSize: 13, color: '#6b7280', marginBottom: 24, lineHeight: 1.6 }}>
-        <strong>{phone}</strong> raqamingizga Telegram orqali 6 xonali kod yuborildi.
+      <p className="text-[13px] text-gray-500 mb-6 leading-relaxed">
+        <strong>{phone}</strong> raqamingizga Telegram orqali 6 xonali kod
+        yuborildi.
       </p>
 
-      <Form form={form} layout='vertical' onFinish={(v) => onSubmit(v.code)}>
+      <Form form={form} layout="vertical" onFinish={(v) => onSubmit(v.code)}>
         <Form.Item
-          name='code'
-          label={<span style={{ fontWeight: 600, fontSize: 13 }}>Tasdiqlash kodi</span>}
+          name="code"
+          label={
+            <span className="font-semibold text-[13px]">Tasdiqlash kodi</span>
+          }
           rules={[
             { required: true, message: 'Kodni kiriting' },
             { len: 6, message: '6 xonali kod kiriting' },
@@ -30,7 +33,7 @@ export default function OtpForm({ phone, onSubmit, onBack, isPending }: Props) {
         >
           <Input.OTP
             length={6}
-            size='large'
+            size="large"
             onChange={(val) => {
               form.setFieldValue('code', val);
               if (val.length === 6) form.submit();
@@ -38,20 +41,23 @@ export default function OtpForm({ phone, onSubmit, onBack, isPending }: Props) {
           />
         </Form.Item>
         <Button
-          type='primary'
-          htmlType='submit'
+          type="primary"
+          htmlType="submit"
           block
-          size='large'
+          size="large"
           loading={isPending}
-          style={{ borderRadius: 10, background: '#1565c0', border: 'none', fontWeight: 700, height: 44, marginTop: 4 }}
+          className="font-bold h-11 mt-1"
         >
           Tasdiqlash
         </Button>
         <Button
           block
-          size='large'
-          onClick={() => { onBack(); form.resetFields(); }}
-          style={{ marginTop: 10, borderRadius: 10, height: 44 }}
+          size="large"
+          onClick={() => {
+            onBack();
+            form.resetFields();
+          }}
+          className="h-11 mt-2.5"
         >
           Raqamni o&apos;zgartirish
         </Button>

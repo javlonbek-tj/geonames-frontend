@@ -1,9 +1,11 @@
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import PublicLayout from '@/widgets/layout/ui/PublicLayout';
+import RouteErrorPage from '@/shared/ui/RouteErrorPage';
 
 const router = createBrowserRouter([
   {
     element: <PublicLayout />,
+    errorElement: <RouteErrorPage />,
     children: [
       {
         path: '/',

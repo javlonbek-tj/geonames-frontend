@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router';
 import { Card, Table } from 'antd';
 import type { RegistryParams } from '@/entities/registry/api/registry.api';
 import type { GeoObject } from '@/entities/registry/model/types';
@@ -14,7 +13,6 @@ interface Props {
 }
 
 export default function RegistriesTable({ rows, total, isFetching, filters, setFilters }: Props) {
-  const navigate = useNavigate();
   const page = filters.page ?? 1;
   const limit = filters.limit ?? DEFAULT_LIMIT;
 
@@ -26,10 +24,6 @@ export default function RegistriesTable({ rows, total, isFetching, filters, setF
         dataSource={rows}
         loading={isFetching}
         scroll={{ x: true }}
-        onRow={(obj) => ({
-          onClick: () => void navigate(`/registry/${obj.id}`),
-          className: 'cursor-pointer',
-        })}
         pagination={{
           current: page,
           pageSize: limit,

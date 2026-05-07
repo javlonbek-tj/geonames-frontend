@@ -6,6 +6,7 @@ interface Props {
   searchInput: string;
   regionId: number | undefined;
   districtId: number | undefined;
+  status: 'active' | 'ended' | undefined;
   regions: Region[];
   districts: District[];
   hasFilters: boolean;
@@ -14,6 +15,7 @@ interface Props {
   onSearchClear: () => void;
   onRegionChange: (v: number | undefined) => void;
   onDistrictChange: (v: number | undefined) => void;
+  onStatusChange: (v: 'active' | 'ended' | undefined) => void;
   onClear: () => void;
 }
 
@@ -21,6 +23,7 @@ export default function DiscussionsFilters({
   searchInput,
   regionId,
   districtId,
+  status,
   regions,
   districts,
   hasFilters,
@@ -29,6 +32,7 @@ export default function DiscussionsFilters({
   onSearchClear,
   onRegionChange,
   onDistrictChange,
+  onStatusChange,
   onClear,
 }: Props) {
   return (
@@ -68,6 +72,21 @@ export default function DiscussionsFilters({
             value={districtId}
             options={districts.map((d) => ({ value: d.id, label: d.nameUz }))}
             onChange={onDistrictChange}
+          />
+        </div>
+
+        <div style={{ minWidth: 160 }}>
+          <div className='text-xs text-gray-500 mb-1'>Holati</div>
+          <Select
+            placeholder='Barchasi'
+            allowClear
+            style={{ width: '100%' }}
+            value={status}
+            options={[
+              { value: 'active', label: 'Jarayonda' },
+              { value: 'ended', label: 'Yakunlangan' },
+            ]}
+            onChange={onStatusChange}
           />
         </div>
 

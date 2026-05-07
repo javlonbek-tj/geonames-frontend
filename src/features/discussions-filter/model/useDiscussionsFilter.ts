@@ -8,6 +8,7 @@ export function useDiscussionsFilter() {
   const [searchInput, setSearchInput] = useState('');
   const [regionId, setRegionId] = useState<number | undefined>();
   const [districtId, setDistrictId] = useState<number | undefined>();
+  const [status, setStatus] = useState<'active' | 'ended' | undefined>();
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(DEFAULT_LIMIT);
 
@@ -23,6 +24,7 @@ export function useDiscussionsFilter() {
     setSearchInput('');
     setRegionId(undefined);
     setDistrictId(undefined);
+    setStatus(undefined);
     setPage(1);
   };
 
@@ -38,12 +40,13 @@ export function useDiscussionsFilter() {
   };
 
   return {
-    params: { regionId, districtId, search: search || undefined, page, limit },
-    hasFilters: !!search || !!regionId || !!districtId,
+    params: { regionId, districtId, search: search || undefined, status, page, limit },
+    hasFilters: !!search || !!regionId || !!districtId || !!status,
     searchInput,
     setSearchInput,
     regionId,
     districtId,
+    status,
     page,
     limit,
     regions,
@@ -52,6 +55,7 @@ export function useDiscussionsFilter() {
     clearFilters,
     onRegionChange,
     onDistrictChange,
+    onStatusChange: (v: 'active' | 'ended' | undefined) => { setStatus(v); setPage(1); },
     onPageChange: (p: number, ps: number) => { setPage(p); setLimit(ps); },
     onSearchClear: () => { setSearchInput(''); setSearch(''); setPage(1); },
   };

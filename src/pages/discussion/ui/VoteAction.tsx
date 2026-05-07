@@ -6,79 +6,59 @@ import {
   LikeOutlined,
 } from '@ant-design/icons';
 import { Link } from 'react-router';
-import type { UseMutationResult } from '@tanstack/react-query';
 import type { DiscussionItem } from '@/entities/discussion/api/discussions.api';
+import type { useVote } from '@/features/vote/model/useVote';
 
 interface Props {
   discussion: DiscussionItem;
   isActive: boolean;
   hasVoted: boolean;
   isLoggedIn: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  voteMutation: UseMutationResult<any, any, 'support' | 'oppose'>;
+  voteMutation: ReturnType<typeof useVote>;
 }
 
 export default function VoteAction({ discussion, isActive, hasVoted, isLoggedIn, voteMutation }: Props) {
   return (
-    <div style={{ background: '#fff', border: '1px solid #e3e8f0', borderRadius: 16, padding: '24px' }}>
-      <h3 style={{ fontSize: 15, fontWeight: 700, color: '#0f1f3d', marginBottom: 16 }}>
+    <div className='bg-white border border-[#e3e8f0] rounded-2xl p-6'>
+      <h3 className='text-[15px] font-bold text-[#0f1f3d] mb-4'>
         Ovoz bering
       </h3>
 
       {!isLoggedIn ? (
         <div>
-          <p style={{ fontSize: 13, color: '#6b7280', marginBottom: 14 }}>
+          <p className='text-[13px] text-gray-500 mb-3.5'>
             Ovoz berish uchun tizimga kirishingiz kerak.
           </p>
           <Link to='/login'>
-            <Button
-              type='primary'
-              block
-              style={{ borderRadius: 10, background: '#1565c0', height: 40 }}
-            >
+            <Button type='primary' block>
               Telegram orqali kirish
             </Button>
           </Link>
         </div>
       ) : !isActive ? (
-        <div
-          className='rounded-xl p-4 text-center'
-          style={{ background: '#f3f4f6', color: '#6b7280', fontSize: 13 }}
-        >
+        <div className='rounded-xl p-4 text-center text-[13px] bg-gray-100 text-gray-500'>
           Muhokama muddati tugagan
         </div>
       ) : hasVoted ? (
         <div className='flex flex-col gap-3'>
-          <div
-            className='flex items-center gap-3 p-4 rounded-xl'
-            style={{
-              border: discussion.myVote === 'support' ? '2px solid #16a34a' : '2px solid #e3e8f0',
-              background: discussion.myVote === 'support' ? '#f0fdf4' : '#fff',
-            }}
-          >
-            <div className='w-9 h-9 rounded-lg flex items-center justify-center' style={{ background: '#dcfce7' }}>
-              <LikeFilled
-                style={{ color: discussion.myVote === 'support' ? '#16a34a' : '#d1d5db', fontSize: 16 }}
-              />
+          <div className={`flex items-center gap-3 p-4 rounded-xl border-2 ${
+            discussion.myVote === 'support' ? 'border-green-600 bg-green-50' : 'border-[#e3e8f0] bg-white'
+          }`}>
+            <div className='w-9 h-9 rounded-lg flex items-center justify-center bg-green-100'>
+              <LikeFilled className={discussion.myVote === 'support' ? 'text-green-600' : 'text-gray-300'} />
             </div>
-            <div style={{ fontWeight: 700, fontSize: 14, color: discussion.myVote === 'support' ? '#166534' : '#9ca3af' }}>
+            <div className={`font-bold text-sm ${discussion.myVote === 'support' ? 'text-green-800' : 'text-gray-400'}`}>
               Qo'llayman
             </div>
           </div>
 
-          <div
-            className='flex items-center gap-3 p-4 rounded-xl'
-            style={{
-              border: discussion.myVote === 'oppose' ? '2px solid #dc2626' : '2px solid #e3e8f0',
-              background: discussion.myVote === 'oppose' ? '#fef2f2' : '#fff',
-            }}
-          >
-            <div className='w-9 h-9 rounded-lg flex items-center justify-center' style={{ background: '#fee2e2' }}>
-              <DislikeFilled
-                style={{ color: discussion.myVote === 'oppose' ? '#dc2626' : '#d1d5db', fontSize: 16 }}
-              />
+          <div className={`flex items-center gap-3 p-4 rounded-xl border-2 ${
+            discussion.myVote === 'oppose' ? 'border-red-600 bg-red-50' : 'border-[#e3e8f0] bg-white'
+          }`}>
+            <div className='w-9 h-9 rounded-lg flex items-center justify-center bg-red-100'>
+              <DislikeFilled className={discussion.myVote === 'oppose' ? 'text-red-600' : 'text-gray-300'} />
             </div>
-            <div style={{ fontWeight: 700, fontSize: 14, color: discussion.myVote === 'oppose' ? '#991b1b' : '#9ca3af' }}>
+            <div className={`font-bold text-sm ${discussion.myVote === 'oppose' ? 'text-red-800' : 'text-gray-400'}`}>
               Qo'llamayman
             </div>
           </div>
@@ -92,30 +72,28 @@ export default function VoteAction({ discussion, isActive, hasVoted, isLoggedIn,
           <button
             onClick={() => voteMutation.mutate('support')}
             disabled={voteMutation.isPending}
-            className='flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all text-left'
-            style={{ border: '2px solid #e3e8f0', background: '#fff', color: '#374151' }}
+            className='flex items-center gap-3 p-4 rounded-xl border-2 border-[#e3e8f0] bg-white text-gray-700 cursor-pointer transition-all text-left hover:border-green-400 hover:bg-green-50'
           >
-            <div className='w-9 h-9 rounded-lg flex items-center justify-center' style={{ background: '#dcfce7' }}>
-              <LikeOutlined style={{ color: '#16a34a', fontSize: 16 }} />
+            <div className='w-9 h-9 rounded-lg flex items-center justify-center bg-green-100'>
+              <LikeOutlined className='text-green-600' />
             </div>
             <div>
-              <div style={{ fontWeight: 700, fontSize: 14 }}>Qo'llayman</div>
-              <div style={{ fontSize: 12, color: '#9ca3af' }}>Nom uchun ovoz</div>
+              <div className='font-bold text-sm'>Qo'llayman</div>
+              <div className='text-xs text-gray-400'>Nom uchun ovoz</div>
             </div>
           </button>
 
           <button
             onClick={() => voteMutation.mutate('oppose')}
             disabled={voteMutation.isPending}
-            className='flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all text-left'
-            style={{ border: '2px solid #e3e8f0', background: '#fff', color: '#374151' }}
+            className='flex items-center gap-3 p-4 rounded-xl border-2 border-[#e3e8f0] bg-white text-gray-700 cursor-pointer transition-all text-left hover:border-red-400 hover:bg-red-50'
           >
-            <div className='w-9 h-9 rounded-lg flex items-center justify-center' style={{ background: '#fee2e2' }}>
-              <DislikeOutlined style={{ color: '#dc2626', fontSize: 16 }} />
+            <div className='w-9 h-9 rounded-lg flex items-center justify-center bg-red-100'>
+              <DislikeOutlined className='text-red-600' />
             </div>
             <div>
-              <div style={{ fontWeight: 700, fontSize: 14 }}>Qo'llamayman</div>
-              <div style={{ fontSize: 12, color: '#9ca3af' }}>Nom uchun qarshi ovoz</div>
+              <div className='font-bold text-sm'>Qo'llamayman</div>
+              <div className='text-xs text-gray-400'>Nom uchun qarshi ovoz</div>
             </div>
           </button>
         </div>

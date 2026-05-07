@@ -1,3 +1,4 @@
+import { Progress } from 'antd';
 import { DislikeFilled, LikeFilled } from '@ant-design/icons';
 
 interface Props {
@@ -8,38 +9,36 @@ interface Props {
   opposePct: number;
 }
 
-export default function VoteResults({ supportCount, opposeCount, total, supportPct, opposePct }: Props) {
+export default function VoteResults({
+  supportCount,
+  opposeCount,
+  total,
+  supportPct,
+  opposePct,
+}: Props) {
   return (
-    <div style={{ background: '#fff', border: '1px solid #e3e8f0', borderRadius: 16, padding: '24px 32px' }}>
-      <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0f1f3d', marginBottom: 20 }}>
-        Ovoz natijasi
-      </h3>
+    <div className="bg-white border border-[#e3e8f0] rounded-2xl px-8 py-6">
+      <h3 className="text-base font-bold text-[#0f1f3d] mb-5">Ovoz natijasi</h3>
 
-      <div className='flex items-center gap-4 mb-4'>
-        <div style={{ flex: 1 }}>
-          <div className='flex justify-between text-sm mb-1'>
-            <span style={{ color: '#166534', fontWeight: 600 }}>
-              <LikeFilled style={{ marginRight: 4 }} />
-              {supportPct}% ({supportCount} ta)
-            </span>
-            <span style={{ color: '#991b1b', fontWeight: 600 }}>
-              {opposePct}% ({opposeCount} ta)
-              <DislikeFilled style={{ marginLeft: 4 }} />
-            </span>
-          </div>
-          <div style={{ height: 10, borderRadius: 999, background: '#fecaca', overflow: 'hidden' }}>
-            <div
-              style={{
-                height: '100%',
-                borderRadius: 999,
-                background: 'linear-gradient(90deg,#16a34a,#22c55e)',
-                width: `${supportPct}%`,
-                transition: 'width .4s ease',
-              }}
-            />
-          </div>
-          <div className='text-center text-sm text-gray-400 mt-2'>Jami: {total} ovoz</div>
-        </div>
+      <div className="flex justify-between text-sm mb-1">
+        <span className="font-semibold text-green-800 flex items-center gap-1">
+          <LikeFilled />
+          {supportPct}% ({supportCount} ta)
+        </span>
+        <span className="font-semibold text-red-800 flex items-center gap-1">
+          {opposePct}% ({opposeCount} ta)
+          <DislikeFilled />
+        </span>
+      </div>
+      <Progress
+        percent={supportPct}
+        showInfo={false}
+        strokeColor={{ from: '#16a34a', to: '#4ade80' }}
+        trailColor="#fecaca"
+        className="!mb-0"
+      />
+      <div className="text-center text-sm text-gray-400 mt-2">
+        Jami: {total} ovoz
       </div>
     </div>
   );

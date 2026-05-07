@@ -1,4 +1,6 @@
 import type { ColumnsType } from 'antd/es/table';
+import { EyeOutlined } from '@ant-design/icons';
+import { Link } from 'react-router';
 import type { GeoObject } from '@/entities/registry/model/types';
 import CopyableNumber from '../ui/CopyableNumber';
 
@@ -42,11 +44,23 @@ export function getRegistriesColumns(page: number, limit: number): ColumnsType<G
     {
       title: 'Reyestr raqami',
       width: 150,
-      onCell: () => ({ onClick: (e) => e.stopPropagation() }),
       render: (_, obj) =>
         obj.registryNumber
           ? <CopyableNumber value={obj.registryNumber} />
           : <span className='text-gray-400 text-xs'>—</span>,
+    },
+    {
+      title: '',
+      key: 'detail',
+      width: 44,
+      render: (_, obj) => (
+        <Link
+          to={`/registry/${obj.id}`}
+          className="flex items-center justify-center w-7 h-7 rounded-lg hover:bg-[#e8efff] transition-colors"
+        >
+          <EyeOutlined style={{ fontSize: 15, color: '#1565c0' }} />
+        </Link>
+      ),
     },
   ];
 }
