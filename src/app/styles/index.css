@@ -57,3 +57,53 @@ body {
 .compact-table .ant-table-pagination .ant-pagination-total-text {
   margin-inline-end: auto !important;
 }
+
+.map-tooltip,
+.map-label,
+.map-street-label {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  white-space: nowrap;
+  text-shadow:
+    1px 1px 0 #fff,
+    -1px 1px 0 #fff,
+    1px -1px 0 #fff,
+    -1px -1px 0 #fff,
+    0 1px 0 #fff,
+    0 -1px 0 #fff,
+    1px 0 0 #fff,
+    -1px 0 0 #fff !important;
+}
+
+.map-tooltip::before,
+.map-label::before,
+.map-street-label::before {
+  display: none !important;
+}
+
+.map-tooltip {
+  color: #1e293b !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+}
+
+.map-label {
+  color: #1e293b !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  pointer-events: none;
+}
+
+.map-street-label {
+  color: #4c1d95 !important;
+  font-size: 10px !important;
+  font-weight: 500 !important;
+  pointer-events: none;
+  display: none !important;
+}
+
+.zoom-street-labels .map-street-label {
+  display: block !important;
+}

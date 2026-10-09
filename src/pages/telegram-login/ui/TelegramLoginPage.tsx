@@ -1,4 +1,3 @@
-import { Typography } from 'antd';
 import { Navigate } from 'react-router';
 import { useCitizenStore } from '@/entities/citizen/model/citizenStore';
 import logoSvg from '@/shared/assets/logo.svg';
@@ -19,7 +18,7 @@ export default function TelegramLoginPage() {
         <div className="flex flex-col items-center mb-8">
           <img src={logoSvg} alt="Geonames" className="h-7 mb-3.5" />
           <p className="text-base text-gray-500 text-center leading-relaxed m-0">
-            Avval{' '}
+            {/*  Avval{' '}
             <Typography.Link
               href="https://t.me/geonomlar_bot"
               target="_blank"
@@ -27,7 +26,8 @@ export default function TelegramLoginPage() {
             >
               @geonomlar_bot
             </Typography.Link>{' '}
-            telegram botni ishga tushiring va telefon raqamingizni ulashing.
+            telegram botni ishga tushiring va telefon raqamingizni ulashing. */}
+            Tizimga kirish vaqtincha to'xtatilgan
           </p>
         </div>
 

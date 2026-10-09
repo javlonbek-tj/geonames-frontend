@@ -48,6 +48,14 @@ const router = createBrowserRouter([
         handle: { title: 'Geografik obyekt' },
       },
       {
+        path: '/map',
+        lazy: () =>
+          import('@/pages/map/ui/MapPage').then((m) => ({
+            Component: m.default,
+          })),
+        handle: { title: 'Xarita' },
+      },
+      {
         path: '/guide',
         lazy: () =>
           import('@/pages/guide/ui/GuidePage').then((m) => ({
